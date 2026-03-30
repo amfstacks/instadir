@@ -400,6 +400,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
     InstaDIR
 </h1>
             <p class="text-lg text-brand font-medium">The only folder generator with context-aware code injection.</p>
+            <button id="openModalBtn" class="mt-4 inline-flex items-center gap-2 px-5 py-2 bg-white border border-slate-200 hover:border-brand hover:bg-brand-light text-slate-700 hover:text-brand text-sm font-bold rounded-full transition-all shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        See How it Works
+    </button>
         </header>
 
         <div class="mta-12 pat-8 mb-2 borader-t border-slate-200 text-center">
@@ -461,7 +465,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
                             <label for="tree_text" class="block text-sm font-semibold text-slate-700">Paste your text tree here:</label>
                         </div>
                         
-                        <textarea name="tree_text" id="tree_text" rows="15" class="w-full bg-slate-900 text-green-400 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm leading-relaxed shadow-inner" required><?= isset($_POST['tree_text']) ? htmlspecialchars($_POST['tree_text']) : '' ?></textarea>
+                        <textarea name="tree_text" id="tree_text" rows="15" class="w-full bg-slate-900 text-green-400 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm leading-relaxed shadow-inner"    placeholder="root_project/
+├── app/
+│   ├── Controllers/
+│   │   ├── Admin/
+│   │   │   ├── Dashboard.php (Admin overview)
+│   │   │   ├── Settings.php
+│   ├── Models/
+│   │   ├── UserModel.php
+├── public/
+│   ├── index.php"  required><?= isset($_POST['tree_text']) ? htmlspecialchars($_POST['tree_text']) : '' ?></textarea>
 
                         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
                             <button type="submit" name="action" value="bash" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2">
@@ -532,7 +545,171 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
 
     </div>
 </footer>
+<!-- <div id="howItWorksModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    
+    <div id="modalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0 cursor-pointer"></div>
 
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto pointer-events-none">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div id="modalPanel" class="relative transform overflow-hidden rounded-2xl bg-slate-50 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-5xl opacity-0 translate-y-8 sm:translate-y-0 sm:scale-95 pointer-events-auto border border-slate-200">
+                
+                <div class="bg-white px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <h2 class="text-xl font-extrabold text-slate-900 tracking-tight" id="modal-title">How InstaDIR Works</h2>
+                    <button id="closeModalBtn" class="text-slate-400 hover:text-red-500 bg-slate-100 hover:bg-red-50 rounded-full p-2 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <div class="p-6 sm:p-8">
+                    <p class="text-slate-500 mb-8 font-medium text-center">From raw text to a fully scaffolded architecture in seconds.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 1</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path></svg>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 mb-2">Draft Your Tree</h3>
+                            <p class="text-xs text-slate-500 mb-4">Paste directory structure(usually from chatgpt,grok,gemini ..).</p>
+                            <div class="bg-slate-900 text-green-400 p-3 rounded-lg text-xs font-mono leading-relaxed opacity-90">
+lib/<br>&nbsp;&nbsp;main.dart<br>&nbsp;&nbsp;screens/<br>&nbsp;&nbsp;&nbsp;&nbsp;home.dart
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 2</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 mb-2">Inject Boilerplate</h3>
+                            <p class="text-xs text-slate-500">Select target stack. InstaDIR injects namespaces, standard classes, and widgets automatically.</p>
+                            <ul class="mt-4 space-y-2 text-[10px] font-medium text-slate-600">
+                                <li class="flex items-center gap-2"><svg class="w-3 h-3 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Laravel & CI4 Namespaces</li>
+                                <li class="flex items-center gap-2"><svg class="w-3 h-3 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> React Functional Components</li>
+                                <li class="flex items-center gap-2"><svg class="w-3 h-3 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Flutter Stateless Widgets</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 3</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 mb-2">Build & Export</h3>
+                            <p class="text-xs text-slate-500 mb-4">Generate a ready-to-use ZIP file, or grab a Bash script to execute the build on your remote server.</p>
+                            <div class="flex gap-2 mt-auto pt-4 border-t border-slate-100">
+                                <span class="bg-indigo-50 text-brand px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border border-indigo-100">.ZIP Output</span>
+                                <span class="bg-slate-800 text-white px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">.SH Script</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div id="howItWorksModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    
+    <div id="modalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0 cursor-pointer"></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto pointer-events-none">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div id="modalPanel" class="relative transform overflow-hidden rounded-2xl bg-slate-50 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-6xl opacity-0 translate-y-8 sm:translate-y-0 sm:scale-95 pointer-events-auto border border-slate-200">
+                
+                <div class="bg-white px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                    <h2 class="text-xl font-extrabold text-slate-900 tracking-tight" id="modal-title">How InstaDIR Works</h2>
+                    <button id="closeModalBtn" class="text-slate-400 hover:text-red-500 bg-slate-100 hover:bg-red-50 rounded-full p-2 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <div class="p-6 sm:p-8">
+                    <p class="text-slate-500 mb-8 font-medium text-center">The ultimate bridge between AI prompts and real project architecture.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 1</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2">Prompt an AI</h3>
+                            <p class="text-xs text-slate-500 mb-4">Ask ChatGPT, Gemini, or Grok for a project folder structure.</p>
+                            <div class="mt-auto bg-slate-900 text-slate-300 p-3 rounded-lg text-[10px] font-mono leading-relaxed opacity-90 italic">
+                                "Give me a professional folder structure for a Fintech CodeIgniter project."
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 2</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2">Copy & Paste</h3>
+                            <p class="text-xs text-slate-500 mb-4">Copy the generated tree output and paste it directly into InstaDIR.</p>
+                            <div class="mt-auto bg-slate-900 text-green-400 p-3 rounded-lg text-[10px] font-mono leading-relaxed opacity-90">
+app/<br>&nbsp;&nbsp;Controllers/<br>&nbsp;&nbsp;&nbsp;&nbsp;Payment.php
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 3</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2">Target Stack</h3>
+                            <p class="text-xs text-slate-500">Select your framework (optional). InstaDIR automatically injects the right boilerplate.</p>
+                            <ul class="mt-auto pt-4 space-y-2 text-[10px] font-medium text-slate-600">
+                                <li class="flex items-center gap-2"><svg class="w-3 h-3 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> CI4 & Laravel Namespaces</li>
+                                <li class="flex items-center gap-2"><svg class="w-3 h-3 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Flutter Widgets</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm relative flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand text-white text-[10px] font-black px-2 py-1 rounded-bl-lg">STEP 4</div>
+                            <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2">Generate & Export</h3>
+                            <p class="text-xs text-slate-500 mb-4">Take your code exactly how you need it. Generate a ZIP or Bash script instantly.</p>
+                            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-100">
+                                <span class="bg-indigo-50 text-brand px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border border-indigo-100">.ZIP</span>
+                                <span class="bg-slate-800 text-white px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">.SH Script</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-8 pt-8 border-t border-slate-200">
+                        <div class="text-center mb-4">
+                            <span class="bg-indigo-50 text-brand px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-indigo-100">
+                                See it in action
+                            </span>
+                        </div>
+                        <div class="relative rounded-xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900 mx-auto max-w-4xl group">
+                            <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                      <video 
+    autoplay 
+    loop 
+    muted 
+    playsinline 
+    class="w-full h-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+>
+    <source src="assets/instadir.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>  </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
         const textArea = document.getElementById('tree_text');
         const previewContainer = document.getElementById('preview_container');
@@ -575,6 +752,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
 
         textArea.addEventListener('input', updatePreview);
         updatePreview(); // Run once on load to render prepopulated text if form fails
+
+        // --- Modal Logic ---
+const openModalBtn = document.getElementById('openModalBtn');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const howItWorksModal = document.getElementById('howItWorksModal');
+const modalPanel = document.getElementById('modalPanel');
+
+function toggleModal(show) {
+    if (show) {
+        howItWorksModal.classList.remove('hidden');
+        // Small timeout to allow display:block to apply before animating opacity
+        setTimeout(() => {
+            modalBackdrop.classList.remove('opacity-0');
+            modalBackdrop.classList.add('opacity-100');
+            modalPanel.classList.remove('opacity-0', 'translate-y-8', 'sm:scale-95');
+            modalPanel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+        }, 10);
+    } else {
+        modalBackdrop.classList.remove('opacity-100');
+        modalBackdrop.classList.add('opacity-0');
+        modalPanel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+        modalPanel.classList.add('opacity-0', 'translate-y-8', 'sm:scale-95');
+        // Wait for animation to finish before hiding
+        setTimeout(() => {
+            howItWorksModal.classList.add('hidden');
+        }, 300);
+    }
+}
+
+openModalBtn.addEventListener('click', () => toggleModal(true));
+closeModalBtn.addEventListener('click', () => toggleModal(false));
+modalBackdrop.addEventListener('click', () => toggleModal(false));
     </script>
 </body>
 </html>
