@@ -338,7 +338,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
     
     <meta name="robots" content="index, follow">
     
-    <meta name="theme-color" content="#4f46e5"> 
+    <meta name="theme-color" content="#1b9cd5"> 
 
     <link rel="canonical" href="https://instadir.dev/" />
 
@@ -346,18 +346,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
     <meta property="og:url" content="https://instadir.dev/">
     <meta property="og:title" content="InstaDIR | Smart Architecture Builder">
     <meta property="og:description" content="Convert text trees into full project architectures instantly. Built by DEV for DEV.">
-    <meta property="og:image" content="https://instadir.dev/assets/social-preview.jpg">
+    <meta property="og:image" content="https://instadir.dev/assets/instadevlogo.png">
     <meta property="og:image:alt" content="Preview of the InstaDIR interface generating a folder structure">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://instadir.dev/">
     <meta property="twitter:title" content="InstaDIR | Smart Architecture Builder">
     <meta property="twitter:description" content="Convert text trees into full project architectures instantly. Built by DEV for DEV.">
-    <meta property="twitter:image" content="https://instadir.dev/assets/social-preview.jpg">
+    <meta property="twitter:image" content="https://instadir.dev/assets/instadevlogo.png">
     <meta property="twitter:image:alt" content="Preview of the InstaDIR interface generating a folder structure">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -365,19 +365,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              // Upgraded to Plus Jakarta Sans for that premium SaaS feel
-              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'monospace'],
-            }
+   <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            DEFAULT: '#1b9cd5', // Your exact logo color
+            hover: '#1584b5',   // Slightly darker for button hovers
+            light: '#e8f5fb',   // Very light tint for backgrounds/alerts
           }
+        },
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
         }
       }
-    </script>
+    }
+  }
+</script>
     <style>
         textarea { white-space: pre; overflow-wrap: normal; overflow-x: auto; }
         #preview_container::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -389,8 +395,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
 
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <header class="mb-2 text-center">
-            <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-2">InstaDIR</h1>
-            <p class="text-lg text-indigo-600 font-medium">The only folder generator with context-aware code injection.</p>
+          <h1 class="flex items-center justify-center gap-4 text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">
+    <img src="assets/instadevlogo.png" alt="InstaDIR Logo" class="h-16 md:h-20 w-auto drop-shadow-sm">
+    InstaDIR
+</h1>
+            <p class="text-lg text-brand font-medium">The only folder generator with context-aware code injection.</p>
         </header>
 
         <div class="mta-12 pat-8 mb-2 borader-t border-slate-200 text-center">
@@ -438,7 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
                         <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 mb-1">Target Stack</label>
-                                <select name="framework" class="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 shadow-sm">
+                                <select name="framework" class="w-full bg-white border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-brand focus:border-indigo-500 block p-2.5 shadow-sm">
                                     <option value="none" <?= (!isset($_POST['framework']) || $_POST['framework'] === 'none') ? 'selected' : '' ?>>Direct(as pasted)</option>
                                     <option value="flutter" <?= (isset($_POST['framework']) && $_POST['framework'] === 'flutter') ? 'selected' : '' ?>>Flutter (Dart)</option>
                                     <option value="ci4" <?= (isset($_POST['framework']) && $_POST['framework'] === 'ci4') ? 'selected' : '' ?>>CodeIgniter 4 (PHP)</option>
@@ -452,14 +461,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
                             <label for="tree_text" class="block text-sm font-semibold text-slate-700">Paste your text tree here:</label>
                         </div>
                         
-                        <textarea name="tree_text" id="tree_text" rows="15" class="w-full bg-slate-900 text-green-400 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm leading-relaxed shadow-inner" required><?= isset($_POST['tree_text']) ? htmlspecialchars($_POST['tree_text']) : '' ?></textarea>
+                        <textarea name="tree_text" id="tree_text" rows="15" class="w-full bg-slate-900 text-green-400 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm leading-relaxed shadow-inner" required><?= isset($_POST['tree_text']) ? htmlspecialchars($_POST['tree_text']) : '' ?></textarea>
 
                         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
                             <button type="submit" name="action" value="bash" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 Export .sh Script
                             </button>
-                            <button type="submit" name="action" value="zip" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2">
+                            <button type="submit" name="action" value="zip" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center gap-2" style="background: #1b9cd5;">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 Download ZIP
                             </button>
@@ -495,7 +504,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tree_text'])) {
             <div class="text-center md:text-left">
                 <p class="text-slate-500 text-sm font-medium">
                     Built with 💙 by 
-                    <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME" target="_blank" class="text-indigo-600 font-bold hover:underline decoration-2 underline-offset-4">
+                    <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME" target="_blank" class="text-brand font-bold hover:underline decoration-2 underline-offset-4">
                         AMFSTACKS
                     </a>
                 </p>
