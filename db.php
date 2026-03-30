@@ -1,8 +1,8 @@
 <?php
 $db_host = 'localhost';
-$db_name = 'instadirdev';
-$db_user = 'root';
-$db_pass = '';
+$db_name = 'instadirdev_db';
+$db_user = 'instadirdev_user';
+$db_pass = 'instadirdev_user!@#';
 
 try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass, [
